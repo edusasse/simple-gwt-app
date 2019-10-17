@@ -1,0 +1,8 @@
+<DataSource ID="world" serverConstructor="com.example.gwt.core.server.WorldDataSource">
+    <fields>
+        <field name="id" type="sequence" primaryKey="true" hidden="true" />
+        <field name="countryName" type="text" />
+        <field name="capital" type="text" />
+        <field name="continent" type="text" width="300" />
+    </fields>
+</DataSource>

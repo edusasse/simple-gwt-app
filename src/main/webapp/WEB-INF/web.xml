@@ -1,0 +1,133 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+      version="3.0" id="ALM">
+
+	<!-- The IDACall servlet handles all Built-in DataSource operations -->
+	<servlet>
+		<servlet-name>IDACall</servlet-name>
+		<servlet-class>com.isomorphic.servlet.IDACall</servlet-class>
+	</servlet>
+
+	<!-- The DataSourceLoader servlet returns Javascript representations of 
+		the dataSources whose ID's are passed to it - it is an alternative to using 
+		the <loadDS> JSP tag -->
+	<servlet>
+		<servlet-name>DataSourceLoader</servlet-name>
+		<servlet-class>com.isomorphic.servlet.DataSourceLoader</servlet-class>
+	</servlet>
+
+	<!-- The FileDownload servlet downloads static files, like a webserver -->
+	<servlet>
+		<servlet-name>FileDownload</servlet-name>
+		<servlet-class>com.isomorphic.servlet.FileDownload</servlet-class>
+	</servlet>
+
+	<!-- ISC init: initializes ISC framework -->
+	<servlet>
+		<servlet-name>Init</servlet-name>
+		<servlet-class>com.isomorphic.base.Init</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>HttpProxy</servlet-name>
+		<servlet-class>com.isomorphic.servlet.HttpProxyServlet</servlet-class>
+	</servlet>
+
+	<!-- The PreCache servlet initializes when the servlet engine starts up 
+		and pre-loads data need for all client requests. This is optional, and improves 
+		performance of the first few page requests. PreCache cannot be invoked by 
+		a browser, because there is no "servlet-mapping" defined for it. -->
+	<servlet>
+		<servlet-name>PreCache</servlet-name>
+		<servlet-class>com.isomorphic.servlet.PreCache</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<!-- JUnit servlet ALM -->
+	<!--
+	<servlet>
+	  <servlet-name>jUnitHostImpl</servlet-name>
+	  <servlet-class>com.google.gwt.junit.server.JUnitHostImpl</servlet-class>
+	</servlet>
+	-->
+
+	<!-- RPCManager uses this URL by default for Built-in DataSource operations -->
+	<servlet-mapping>
+		<servlet-name>IDACall</servlet-name>
+		<url-pattern>/AppModule/sc/IDACall/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- DataSourceLoader requests -->
+	<servlet-mapping>
+		<servlet-name>DataSourceLoader</servlet-name>
+		<url-pattern>/AppModule/sc/DataSourceLoader</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>HttpProxy</servlet-name>
+		<url-pattern>/AppModule/sc/HttpProxy/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- Use FileDownload servlet to download all static content that's part 
+		of the skin, such as image files, so we can set Expires headers and other 
+		cache control directives. In a production deployment, you'd want to use a 
+		webserver such as Apache to do this. -->
+	<servlet-mapping>
+		<servlet-name>FileDownload</servlet-name>
+		<url-pattern>/AppModule/sc/skins/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- serve ISC modules compressed, with expires headers -->
+	<servlet-mapping>
+		<servlet-name>FileDownload</servlet-name>
+		<url-pattern>/AppModule/sc/system/modules/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- serve ISC development modules compressed, with expires headers -->
+	<servlet-mapping>
+		<servlet-name>FileDownload</servlet-name>
+		<url-pattern>/AppModule/sc/system/development/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- server skin assets with expires headers -->
+	<servlet-mapping>
+		<servlet-name>FileDownload</servlet-name>
+		<url-pattern>/AppModule/sc/system/reference/skin/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- serve JUnit servlet ALM -->
+	<!--
+	<servlet-mapping>
+		<servlet-name>jUnitHostImpl</servlet-name>
+		<url-pattern>/AppModule/junithost/*</url-pattern>
+	</servlet-mapping>
+	-->
+
+	<!-- serve JUnit servlet Analysis -->
+	<!--
+	<servlet-mapping>
+		<servlet-name>jUnitHostImpl</servlet-name>
+		<url-pattern>/AnalysisModule/junithost/*</url-pattern>
+	</servlet-mapping>
+	-->
+
+	<jsp-config>
+		<!-- Isomorphic JSP tags -->
+		<taglib>
+			<taglib-uri>isomorphic</taglib-uri>
+			<taglib-location>/WEB-INF/iscTaglib.xml</taglib-location>
+		</taglib>
+	</jsp-config>
+
+	<mime-mapping>
+		<extension>manifest</extension>
+		<mime-type>text/cache-manifest</mime-type>
+	</mime-mapping>
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	
+</web-app>

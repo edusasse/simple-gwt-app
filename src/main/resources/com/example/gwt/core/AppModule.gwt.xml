@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module rename-to='AppModule'>
+
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name="com.google.gwt.i18n.I18N" />
+	<inherits name="com.smartgwtee.SmartGwtEE" />
+
+<!--	<inherits name="com.smartgwtee.tools.Tools"/>-->
+<!--	<inherits name="com.smartgwt.tools.SmartGwtTools" />-->
+
+	<!-- We need the JUnit module in the main module, -->
+	<!-- otherwise eclipse complains (Google plugin bug?) -->
+	<!--<inherits name='com.google.gwt.junit.JUnit' />-->
+	
+	<!-- Specify the app entry point class. -->
+	<entry-point class='com.example.gwt.core.client.AppModule' />
+
+	<!-- Specify the paths for translatable code -->
+	<source path='client' />
+	<source path='shared' />
+
+	<collapse-all-properties />
+	
+</module>
